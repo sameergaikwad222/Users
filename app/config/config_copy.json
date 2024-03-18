@@ -1,0 +1,7 @@
+{
+  "database": {
+    "uri": "database url here",
+    "database_name": "database name here",
+    "collection_name": "collection name here"
+  }
+}

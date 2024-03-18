@@ -1,0 +1,4 @@
+.vscode
+app/config/config.json
+venv
+__pycache__

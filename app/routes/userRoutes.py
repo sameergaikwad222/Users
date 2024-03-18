@@ -13,7 +13,7 @@ router = APIRouter()
 # Get All Users
 
 
-@router.get("/users")
+@router.get("/")
 async def get_users(response: Response, limit: int = 10, skip: int = 0):
     try:
         users = multiple_serializer(
@@ -28,7 +28,7 @@ async def get_users(response: Response, limit: int = 10, skip: int = 0):
 
 
 # Insert multiple users
-@router.post("/users")
+@router.post("/")
 async def create_users(users: list[Users], response: Response):
     if len(users) <= 0:
         return {"status": "Failed", "data": None}
@@ -62,7 +62,7 @@ async def create_users(users: list[Users], response: Response):
 
 
 # Get Single User by Id
-@router.get("/users/{id}")
+@router.get("/{id}")
 async def get_user(id: str, response: Response):
     if id == "":
         response.status_code = status.HTTP_400_BAD_REQUEST
@@ -79,7 +79,7 @@ async def get_user(id: str, response: Response):
 
 
 # Update Single User
-@router.patch("/users/{id}")
+@router.patch("/{id}")
 async def update_user(id: str, update_data: dict, response: Response):
     if id == "":
         response.status_code = status.HTTP_400_BAD_REQUEST
@@ -103,7 +103,7 @@ async def update_user(id: str, update_data: dict, response: Response):
 
 
 # Delete Single User
-@router.delete("/users/{id}")
+@router.delete("/{id}")
 async def delete_user(id: str, response: Response):
     if id == "":
         response.status_code = status.HTTP_400_BAD_REQUEST

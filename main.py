@@ -9,7 +9,7 @@ app.add_middleware(
     TrustedHostMiddleware, allowed_hosts=["example.com", "*.example.com", "*"]
 )
 
-app.include_router(userRouter)
+app.include_router(userRouter, prefix="/api/v1/users")
 
 
 @app.middleware("http")

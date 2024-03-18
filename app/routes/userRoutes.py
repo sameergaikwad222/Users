@@ -6,12 +6,15 @@ import datetime
 from bson import ObjectId
 import bcrypt
 
+
 router = APIRouter()
 
 
 # Get All Users
+
+
 @router.get("/users")
-def get_users(response: Response, limit: int = 10, skip: int = 0):
+async def get_users(response: Response, limit: int = 10, skip: int = 0):
     try:
         users = multiple_serializer(
             collection.find().limit(limit=limit).skip(skip=skip)
@@ -26,7 +29,7 @@ def get_users(response: Response, limit: int = 10, skip: int = 0):
 
 # Insert multiple users
 @router.post("/users")
-def create_users(users: list[Users], response: Response):
+async def create_users(users: list[Users], response: Response):
     if len(users) <= 0:
         return {"status": "Failed", "data": None}
 
@@ -60,7 +63,7 @@ def create_users(users: list[Users], response: Response):
 
 # Get Single User by Id
 @router.get("/users/{id}")
-def get_user(id: str, response: Response):
+async def get_user(id: str, response: Response):
     if id == "":
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"status": "failed", "data": None}
@@ -77,7 +80,7 @@ def get_user(id: str, response: Response):
 
 # Update Single User
 @router.patch("/users/{id}")
-def update_user(id: str, update_data: dict, response: Response):
+async def update_user(id: str, update_data: dict, response: Response):
     if id == "":
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"status": "failed", "data": None}
@@ -101,7 +104,7 @@ def update_user(id: str, update_data: dict, response: Response):
 
 # Delete Single User
 @router.delete("/users/{id}")
-def delete_user(id: str, response: Response):
+async def delete_user(id: str, response: Response):
     if id == "":
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"status": "failed", "data": None}
